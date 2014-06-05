@@ -1,7 +1,0 @@
-import first.IFirst
-
-namespace FirstNS{
-	component First{
-		provides prov : IFirst
-	}
-}

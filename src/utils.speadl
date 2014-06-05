@@ -1,0 +1,22 @@
+namespace fr.ups.m2dl.sma.dm.utils {
+	component Dispatcher2[T] {
+		provides from : T
+		requires to1 : T
+		requires to2 : T
+	}
+	
+	component Dispatcher3[T] {
+		provides from : T
+		requires to1: T
+		requires to2: T
+		requires to3: T
+	}
+	
+	/* useful to join species to require port of the ecosystem */
+	ecosystem Joining[T] {
+		requires req : T
+		species JoiningEntity {
+			provides prov : T
+		}
+	}
+}

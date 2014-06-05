@@ -1,0 +1,72 @@
+import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentGet
+import fr.ups.m2dl.sma.dm.system.process.ICycle
+import fr.ups.m2dl.sma.dm.system.agents.IAgentPerception
+import fr.ups.m2dl.sma.dm.system.agents.IAgentAction
+import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentSet
+import fr.ups.m2dl.sma.dm.utils.Joining
+
+namespace fr.ups.m2dl.sma.dm.system.agents {
+	component AgentBehaviour {
+		provides cycle : ICycle
+		requires localGet : ILocalEnvironmentGet
+		requires localSet : ILocalEnvironmentSet
+	}
+	
+	//component AgentBehaviourPDA specializes AgentBehaviour {
+	component AgentBehaviourPDA {
+		provides cycle : ICycle
+		requires localGet : ILocalEnvironmentGet
+		requires localSet : ILocalEnvironmentSet
+		
+		part perception : AgentPerception {
+			bind localGet to localGet
+		}
+		part actions : AgentAct {
+			bind localSet to localSet
+		}
+		part decision : AgentDecision {
+			bind actions to actions.actions
+			bind perception to perception.perception
+		}
+	}
+	
+	component AgentPerception {
+		requires localGet : ILocalEnvironmentGet
+		provides perception : IAgentPerception
+	}
+	
+	component AgentAct {
+		requires localSet : ILocalEnvironmentSet
+		provides actions : IAgentAction
+	}
+	
+	component AgentDecision {
+		provides cycle : ICycle
+		requires perception : IAgentPerception
+		requires actions : IAgentAction
+	}
+	
+	ecosystem RobotsEcosystem {
+		provides cycle : ICycle
+		requires envLocalGet : ILocalEnvironmentGet
+		requires envLocalSet : ILocalEnvironmentSet
+		
+		part joiningGet : Joining[ILocalEnvironmentGet] {
+			bind req to envLocalGet
+		}
+		part joiningSet : Joining[ILocalEnvironmentSet] {
+			bind req to envLocalSet
+		}
+		
+		species Robot(identifier : String) {
+			provides cycle : ICycle
+			use joinGet : joiningGet.JoiningEntity
+			use joinSet : joiningSet.JoiningEntity
+			
+			part behaviour : AgentBehaviourPDA {
+				bind localGet to joinGet.prov
+				bind localSet to joinSet.prov
+			}
+		}
+	}
+}

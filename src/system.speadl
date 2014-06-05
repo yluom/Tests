@@ -1,0 +1,81 @@
+import fr.ups.m2dl.sma.dm.system.network.ICom
+import fr.ups.m2dl.sma.dm.system.network.IConflict
+import fr.ups.m2dl.sma.dm.system.network.IConfigNetwork
+import fr.ups.m2dl.sma.dm.system.process.ICycle
+import fr.ups.m2dl.sma.dm.system.log.ILog
+import fr.ups.m2dl.sma.dm.system.environment.IGlobalEnvironmentGet
+import fr.ups.m2dl.sma.dm.system.environment.IGlobalEnvironmentSet
+import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentGet
+import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentSet
+import fr.ups.m2dl.sma.dm.system.environment.IConfigEnvironment
+import fr.ups.m2dl.sma.dm.system.environment.IPersist
+import fr.ups.m2dl.sma.dm.system.process.IAction
+
+namespace fr.ups.m2dl.sma.dm.system.components.network {
+	component Com {
+		provides com : ICom
+		provides config : IConfigNetwork
+		requires conflictManager : IConflict
+	}
+	component ConflictManager {
+		provides conflictManagement : IConflict
+	}
+	component NetworkCycleManager {
+		provides com : ICom = communicator.com
+		provides config : IConfigNetwork = communicator.config
+		
+		part conflictManager : ConflictManager
+		part communicator : Com {
+			bind conflictManager to conflictManager.conflictManagement
+		}
+	}
+}
+
+namespace fr.ups.m2dl.sma.dm.system.components.log {
+	component Printer {
+		provides cycle : ICycle
+		requires logs : ILog
+	}
+}
+
+namespace fr.ups.m2dl.sma.dm.system.components.configuration {
+	component Configurator {
+		requires envConfig : IConfigEnvironment
+		requires networkConfig : IConfigNetwork
+		//TODO: continue
+	}
+}
+
+namespace fr.ups.m2dl.sma.dm.system.components.environment {
+	component Environment {
+		provides globalGet : IGlobalEnvironmentGet
+		provides globalSet : IGlobalEnvironmentSet
+		provides localGet : ILocalEnvironmentGet
+		provides localSet : ILocalEnvironmentSet
+		provides config : IConfigEnvironment
+		provides log : ILog
+		provides persist : IPersist
+	}
+}
+
+namespace fr.ups.m2dl.sma.dm.system.components.process {
+	component Controller {
+		provides actions : IAction
+		requires cycle : ICycle
+	}
+	
+	component CycleManager {
+		provides cycle : ICycle
+		requires doCyle : ICycle
+		requires com : ICom
+		requires envGet : IGlobalEnvironmentGet
+		requires envSet : IGlobalEnvironmentSet
+	}
+}
+
+namespace fr.ups.m2dl.sma.dm.system.components.system {
+	component System {
+		//TODO
+	}
+}
+

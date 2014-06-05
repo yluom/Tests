@@ -1,0 +1,5 @@
+namespace fr.ups.m2dl.sma.dm.system.components.graphic {
+	component Interface {
+		//TODO
+	}
+}
