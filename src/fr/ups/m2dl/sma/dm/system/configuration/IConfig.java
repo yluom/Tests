@@ -9,13 +9,11 @@ package fr.ups.m2dl.sma.dm.system.configuration;
  *
  */
 public interface IConfig {
-	/**
-	 * @return The number of agent at the beginning of the system
-	 */
-	int getNbAgent();
 	
 	/**
-	 * @return The number of boxes at the beginning of the system.
+	 * Initialize the system
+	 * @param nbAgent Number of robot at the beginning
+	 * @param nbBoxes Number of boxes at the beginning
 	 */
-	int getNbBox();
+	void initialize(int nbAgent, int nbBoxes);
 }

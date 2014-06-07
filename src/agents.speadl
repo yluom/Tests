@@ -4,9 +4,11 @@ import fr.ups.m2dl.sma.dm.system.agents.IAgentPerception
 import fr.ups.m2dl.sma.dm.system.agents.IAgentAction
 import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentSet
 import fr.ups.m2dl.sma.dm.utils.Joining
+import fr.ups.m2dl.sma.dm.system.log.ILog
 
 namespace fr.ups.m2dl.sma.dm.system.agents {
 	component AgentBehaviour {
+		provides log : ILog
 		provides cycle : ICycle
 		requires localGet : ILocalEnvironmentGet
 		requires localSet : ILocalEnvironmentSet
@@ -14,6 +16,7 @@ namespace fr.ups.m2dl.sma.dm.system.agents {
 	
 	//component AgentBehaviourPDA specializes AgentBehaviour {
 	component AgentBehaviourPDA {
+		provides log : ILog
 		provides cycle : ICycle
 		requires localGet : ILocalEnvironmentGet
 		requires localSet : ILocalEnvironmentSet
@@ -46,8 +49,14 @@ namespace fr.ups.m2dl.sma.dm.system.agents {
 		requires actions : IAgentAction
 	}
 	
+	// to concat logs from all agents
+	component LogConcat {
+		provides log : ILog
+	}
+	
 	ecosystem RobotsEcosystem {
 		provides cycle : ICycle
+		provides log : ILog = logConcat.log
 		requires envLocalGet : ILocalEnvironmentGet
 		requires envLocalSet : ILocalEnvironmentSet
 		
@@ -57,6 +66,8 @@ namespace fr.ups.m2dl.sma.dm.system.agents {
 		part joiningSet : Joining[ILocalEnvironmentSet] {
 			bind req to envLocalSet
 		}
+		
+		part logConcat : LogConcat
 		
 		species Robot(identifier : String) {
 			provides cycle : ICycle

@@ -10,6 +10,7 @@ import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentSet
 import fr.ups.m2dl.sma.dm.system.environment.IConfigEnvironment
 import fr.ups.m2dl.sma.dm.system.environment.IPersist
 import fr.ups.m2dl.sma.dm.system.process.IAction
+import fr.ups.m2dl.sma.dm.system.configuration.IConfig
 
 namespace fr.ups.m2dl.sma.dm.system.components.network {
 	component Com {
@@ -42,7 +43,7 @@ namespace fr.ups.m2dl.sma.dm.system.components.configuration {
 	component Configurator {
 		requires envConfig : IConfigEnvironment
 		requires networkConfig : IConfigNetwork
-		//TODO: continue
+		provides config : IConfig
 	}
 }
 
