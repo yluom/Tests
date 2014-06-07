@@ -49,11 +49,6 @@ namespace fr.ups.m2dl.sma.dm.system.agents {
 		requires actions : IAgentAction
 	}
 	
-	// to concat logs from all agents
-	component LogConcat {
-		provides log : ILog
-	}
-	
 	ecosystem RobotsEcosystem {
 		provides cycle : ICycle
 		provides log : ILog
