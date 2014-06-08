@@ -48,7 +48,7 @@ namespace fr.ups.m2dl.sma.dm.system.components.configuration {
 }
 
 namespace fr.ups.m2dl.sma.dm.system.components.environment {
-	component Environment {
+	component EnvironmentRepresentation {
 		provides globalGet : IGlobalEnvironmentGet
 		provides globalSet : IGlobalEnvironmentSet
 		provides localGet : ILocalEnvironmentGet
