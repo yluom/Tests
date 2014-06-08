@@ -51,11 +51,19 @@ public class RobotEcosystemImpl extends RobotsEcosystem {
 			
 			@Override
 			public List<Log> getTrace() {
-				return logs;
+				ArrayList<Log> allLogs = new ArrayList<>();
+				for (Robot.Component agent : agents) {
+					allLogs.addAll(agent.log().getTrace());
+				}
+				allLogs.addAll(logs);
+				return allLogs;
 			}
 			
 			@Override
 			public void clear() {
+				for (Robot.Component agent : agents) {
+					agent.log().clear();
+				}
 				logs.clear();
 			}
 		};
