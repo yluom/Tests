@@ -25,6 +25,12 @@ public class PrinterDispatcherImpl extends Dispatcher2<ILog> {
 				trace1.addAll(trace2);
 				return trace1;
 			}
+
+			@Override
+			public void clear() {
+				requires().to1().clear();
+				requires().to2().clear();
+			}
 		};
 	}
 }
