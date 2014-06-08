@@ -3,8 +3,11 @@
  */
 package fr.ups.m2dl.sma.dm.system.log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import fr.ups.m2dl.sma.dm.system.components.log.Printer;
@@ -39,8 +42,9 @@ public class SimplePrinterImpl extends Printer {
 				});
 				
 				// print all traces
+				DateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss:S");
 				for (Log log : traces) {
-					System.out.println(log.getDate()+"\t"+log.getAuthor()+"\t"+log.getMessage());
+					System.out.println(format.format(new Date(log.getDate()))+"\t"+log.getAuthor()+"\t"+log.getMessage());
 				}
 				
 				// clear printed traces

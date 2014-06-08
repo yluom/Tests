@@ -33,7 +33,7 @@ public class AgentActionImpl extends AgentAct{
 			
 			@Override
 			public boolean goRight() {
-				return requires().localSet().changePosition(agent, Direction.WEST);
+				return requires().localSet().changePosition(agent, Direction.EAST);
 			}
 			
 			@Override
