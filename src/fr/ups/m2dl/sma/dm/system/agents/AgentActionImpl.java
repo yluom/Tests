@@ -6,13 +6,11 @@ public class AgentActionImpl extends AgentAct{
 	String agent;
 	
 	public AgentActionImpl(String agent) {
-		// TODO Auto-generated constructor stub
 		this.agent=agent;
 	}
 
 	@Override
 	protected IAgentAction make_actions() {
-		// TODO Auto-generated method stub
 		return new IAgentAction() {
 			
 			@Override
@@ -29,25 +27,21 @@ public class AgentActionImpl extends AgentAct{
 			
 			@Override
 			public boolean goUp() {
-				// TODO Auto-generated method stub
 				return requires().localSet().changePosition(agent, Direction.NORTH);
 			}
 			
 			@Override
 			public boolean goRight() {
-				// TODO Auto-generated method stub
 				return requires().localSet().changePosition(agent, Direction.WEST);
 			}
 			
 			@Override
 			public boolean goLeft() {
-				// TODO Auto-generated method stub
 				return requires().localSet().changePosition(agent, Direction.WEST);
 			}
 			
 			@Override
 			public boolean goDown() {
-				// TODO Auto-generated method stub
 				return requires().localSet().changePosition(agent, Direction.SOUTH);
 			}
 			
