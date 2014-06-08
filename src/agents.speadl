@@ -63,7 +63,7 @@ namespace fr.ups.m2dl.sma.dm.system.agents {
 		}
 		
 		species Robot(identifier : String) {
-			provides cycle : ICycle
+			provides cycle : ICycle = behaviour.cycle
 			use joinGet : joiningGet.JoiningEntity
 			use joinSet : joiningSet.JoiningEntity
 			
