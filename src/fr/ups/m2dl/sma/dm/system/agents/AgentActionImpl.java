@@ -23,7 +23,7 @@ public class AgentActionImpl extends AgentAct{
 			
 			@Override
 			public boolean pick(Direction direction) {
-				requires().localSet().pickBox(agent, direction);
+				return requires().localSet().pickBox(agent, direction);
 			}
 			
 			@Override
@@ -48,7 +48,7 @@ public class AgentActionImpl extends AgentAct{
 			
 			@Override
 			public boolean drop(Direction direction) {
-
+				return requires().localSet().dropBox(agent, direction);
 			}
 			
 			@Override
