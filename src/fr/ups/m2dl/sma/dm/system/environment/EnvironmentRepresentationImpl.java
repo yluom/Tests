@@ -172,9 +172,10 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 			}
 			
 			@Override
-			public void initialize(int nbAgent, int nbBox) {
+			public Environment initialize(int nbAgent, int nbBox) {
 				EnvironmentRepresentationImpl.this.environment = new Environment(nbAgent, nbBox);
 				EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "Initialize with "+nbAgent+" agents and "+nbBox+" boxes"));
+				return EnvironmentRepresentationImpl.this.environment;
 			}
 		};
 	}

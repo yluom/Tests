@@ -20,6 +20,7 @@ import fr.ups.m2dl.sma.dm.system.components.network.NetworkCycleManager
 import fr.ups.m2dl.sma.dm.system.components.process.CycleManager
 import fr.ups.m2dl.sma.dm.system.components.process.Controller
 import fr.ups.m2dl.sma.dm.system.components.configuration.Configurator
+import fr.ups.m2dl.sma.dm.system.agents.IConfigEcosystem
 
 namespace fr.ups.m2dl.sma.dm.system.components.network {
 	component Com {
@@ -52,6 +53,7 @@ namespace fr.ups.m2dl.sma.dm.system.components.configuration {
 	component Configurator {
 		requires envConfig : IConfigEnvironment
 		requires networkConfig : IConfigNetwork
+		requires agentConfig : IConfigEcosystem
 		provides config : IConfig
 	}
 }
@@ -120,6 +122,7 @@ namespace fr.ups.m2dl.sma.dm.system.components.system {
 		part configurator : Configurator {
 			bind networkConfig to networkManager.config
 			bind envConfig to environment.config
+			bind agentConfig to eco.config
 		}
 	}
 }

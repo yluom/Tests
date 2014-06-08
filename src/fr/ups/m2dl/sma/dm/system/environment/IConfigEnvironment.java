@@ -17,7 +17,7 @@ public interface IConfigEnvironment {
 	 * @param nbAgent Number of agent at the starting of the environment.
 	 * @param nbBox Number of box at the starting of the environment.
 	 */
-	void initialize(int nbAgent, int nbBox);
+	Environment initialize(int nbAgent, int nbBox);
 	
 	/**
 	 * Move up to position of a passageway 

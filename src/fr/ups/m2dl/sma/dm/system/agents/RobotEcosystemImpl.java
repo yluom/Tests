@@ -1,6 +1,7 @@
 package fr.ups.m2dl.sma.dm.system.agents;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentGet;
@@ -16,7 +17,7 @@ import fr.ups.m2dl.sma.dm.utils.JoiningImpl;
  *
  */
 public class RobotEcosystemImpl extends RobotsEcosystem {
-	private List<Robot> agents = new ArrayList<>();
+	private List<Robot.Component> agents = new ArrayList<>();
 	private List<Log> logs = new ArrayList<>();
 	
 	@Override
@@ -27,8 +28,8 @@ public class RobotEcosystemImpl extends RobotsEcosystem {
 			@Override
 			public void doCyle() {
 				logs.add(new Log("RobotEcosystem", "start cycle"));
-				for (Robot agent : agents) {
-					agent.provides().cycle().doCyle();
+				for (Robot.Component agent : agents) {
+					agent.cycle().doCyle();
 				}
 				logs.add(new Log("RobotEcosystem", "end cycle"));
 			}
@@ -36,8 +37,8 @@ public class RobotEcosystemImpl extends RobotsEcosystem {
 			@Override
 			public void afterCycle() {
 				logs.add(new Log("RobotEcosystem", "start after cycle"));
-				for (Robot agent : agents) {
-					agent.provides().cycle().afterCycle();
+				for (Robot.Component agent : agents) {
+					agent.cycle().afterCycle();
 				}
 				logs.add(new Log("RobotEcosystem", "end after cycle"));
 			}
@@ -79,9 +80,21 @@ public class RobotEcosystemImpl extends RobotsEcosystem {
 				return new PerceiveDecidActBehaviourImpl(identifier);
 			}
 		};
-		
-		agents.add(agent);
 		return agent;
+	}
+
+	@Override
+	protected IConfigEcosystem make_config() {
+		return new IConfigEcosystem() {
+			
+			@Override
+			public void initialize(Collection<String> agentsToManage) {
+				for (String agentId : agentsToManage) {
+					Robot.Component robot = newRobot(agentId);
+					agents.add(robot);
+				}
+			}
+		};
 	}
 
 }

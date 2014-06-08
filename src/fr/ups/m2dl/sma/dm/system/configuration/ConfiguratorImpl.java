@@ -4,6 +4,7 @@
 package fr.ups.m2dl.sma.dm.system.configuration;
 
 import fr.ups.m2dl.sma.dm.system.components.configuration.Configurator;
+import fr.ups.m2dl.sma.dm.system.environment.Environment;
 
 /**
  * @author SERIN Kevin
@@ -17,7 +18,8 @@ public class ConfiguratorImpl extends Configurator {
 			
 			@Override
 			public void initialize(int nbAgent, int nbBoxes) {
-				requires().envConfig().initialize(nbAgent, nbBoxes);
+				Environment environment = requires().envConfig().initialize(nbAgent, nbBoxes);
+				requires().agentConfig().initialize(environment.getRobots());
 			}
 		};
 	}

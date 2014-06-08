@@ -53,6 +53,7 @@ namespace fr.ups.m2dl.sma.dm.system.agents {
 	ecosystem RobotsEcosystem {
 		provides cycle : ICycle
 		provides log : ILog
+		provides config : IConfigEcosystem
 		requires envLocalGet : ILocalEnvironmentGet
 		requires envLocalSet : ILocalEnvironmentSet
 		
