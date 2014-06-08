@@ -11,6 +11,15 @@ import fr.ups.m2dl.sma.dm.system.environment.IConfigEnvironment
 import fr.ups.m2dl.sma.dm.system.environment.IPersist
 import fr.ups.m2dl.sma.dm.system.process.IAction
 import fr.ups.m2dl.sma.dm.system.configuration.IConfig
+import fr.ups.m2dl.sma.dm.system.components.environment.EnvironmentRepresentation
+import fr.ups.m2dl.sma.dm.system.agents.RobotsEcosystem
+import fr.ups.m2dl.sma.dm.utils.Dispatcher2
+import fr.ups.m2dl.sma.dm.system.components.log.Printer
+import fr.ups.m2dl.sma.dm.utils.Dispatcher3
+import fr.ups.m2dl.sma.dm.system.components.network.NetworkCycleManager
+import fr.ups.m2dl.sma.dm.system.components.process.CycleManager
+import fr.ups.m2dl.sma.dm.system.components.process.Controller
+import fr.ups.m2dl.sma.dm.system.components.configuration.Configurator
 
 namespace fr.ups.m2dl.sma.dm.system.components.network {
 	component Com {
@@ -76,7 +85,42 @@ namespace fr.ups.m2dl.sma.dm.system.components.process {
 
 namespace fr.ups.m2dl.sma.dm.system.components.system {
 	component System {
-		//TODO
+		requires externCycle : ICycle
+		provides actions : IAction = controller.actions
+		provides environmentGet : IGlobalEnvironmentGet = environment.globalGet
+		provides config : IConfig = configurator.config
+		
+		part networkManager : NetworkCycleManager
+		part environment : EnvironmentRepresentation
+		part eco : RobotsEcosystem {
+			bind envLocalGet to environment.localGet
+			bind envLocalSet to environment.localSet
+		}
+		part logDispatcher : Dispatcher2[ILog] {
+			bind to1 to environment.log
+			bind to2 to eco.log
+		}
+		part printer : Printer {
+			bind logs to logDispatcher.from
+		}
+		part cycleDispatcher : Dispatcher3[ICycle] {
+			bind to1 to eco.cycle
+			bind to2 to printer.cycle
+			bind to3 to externCycle
+		}
+		part cycleManager : CycleManager {
+			bind com to networkManager.com
+			bind doCyle to cycleDispatcher.from
+			bind envGet to environment.globalGet
+			bind envSet to environment.globalSet
+		}
+		part controller : Controller {
+			bind cycle to cycleManager.cycle
+		}
+		part configurator : Configurator {
+			bind networkConfig to networkManager.config
+			bind envConfig to environment.config
+		}
 	}
 }
 
