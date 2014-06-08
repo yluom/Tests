@@ -71,14 +71,12 @@ public class RobotEcosystemImpl extends RobotsEcosystem {
 	}
 
 	@Override
-	protected Robot make_Robot(String identifier) {
+	protected Robot make_Robot(final String identifier) {
 		logs.add(new Log("RobotEcosystem", "create agent: "+identifier));
 		Robot agent = new Robot() {
-			//TODO: use the implementation
 			@Override
 			protected AgentBehaviourPDA make_behaviour() {
-				// TODO Auto-generated method stub
-				return null;
+				return new PerceiveDecidActBehaviourImpl(identifier);
 			}
 		};
 		

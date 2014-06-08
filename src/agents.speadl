@@ -16,8 +16,8 @@ namespace fr.ups.m2dl.sma.dm.system.agents {
 	
 	//component AgentBehaviourPDA specializes AgentBehaviour {
 	component AgentBehaviourPDA {
-		provides log : ILog
-		provides cycle : ICycle
+		provides log : ILog = decision.log
+		provides cycle : ICycle = decision.cycle
 		requires localGet : ILocalEnvironmentGet
 		requires localSet : ILocalEnvironmentSet
 		
@@ -45,6 +45,7 @@ namespace fr.ups.m2dl.sma.dm.system.agents {
 	
 	component AgentDecision {
 		provides cycle : ICycle
+		provides log : ILog
 		requires perception : IAgentPerception
 		requires actions : IAgentAction
 	}
