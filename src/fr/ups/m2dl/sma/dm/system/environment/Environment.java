@@ -88,7 +88,7 @@ public class Environment implements Serializable {
 		Position newPos = new Position(newX, newY);
 		if(this.robotsPositions.containsKey(pos) 
 				&& !this.robotsPositions.containsKey(newPos)
-				&& this.environment[newX][newY].equals(Element.EMPTY)) {
+				&& (this.environment[newX][newY].equals(Element.EMPTY) || this.environment[newX][newY].equals(Element.DEPOSIT))) {
 			
 			Robot robot = this.robotsPositions.get(pos);
 			this.robotsPositions.remove(pos);

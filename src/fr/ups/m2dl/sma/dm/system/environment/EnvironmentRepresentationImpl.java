@@ -111,8 +111,13 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 					break;
 				}
 				Element element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(x, y);
-				if(element != null && element.equals(Element.EMPTY)) {
-					if(EnvironmentRepresentationImpl.this.environment.addBox(x, y)) {
+				if(element != null && (element.equals(Element.EMPTY) || element.equals(Element.DEPOSIT))) {
+					if(element.equals(Element.DEPOSIT)) {
+						EnvironmentRepresentationImpl.this.environment.setRobotState(agentIdentifier, false);
+						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "box destroyed"));
+						return true;
+					}
+					else if(EnvironmentRepresentationImpl.this.environment.addBox(x, y)) {
 						EnvironmentRepresentationImpl.this.environment.setRobotState(agentIdentifier, false);
 						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "drop box at "+x+";"+y));
 						return true;
@@ -143,7 +148,7 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 					break;
 				}
 				Element element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(newX, newY);
-				if(element != null && element.equals(Element.EMPTY)) {
+				if(element != null && (element.equals(Element.EMPTY) || element.equals(Element.DEPOSIT))) {
 					if(EnvironmentRepresentationImpl.this.environment.moveRobot(x, y, newX, newY)) {
 						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "move "+x+";"+y+" to "+newX+";"+newY));
 						return true;
