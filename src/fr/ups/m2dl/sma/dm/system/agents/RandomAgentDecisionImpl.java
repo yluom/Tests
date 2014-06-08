@@ -38,6 +38,9 @@ public class RandomAgentDecisionImpl extends AgentDecision {
 				@SuppressWarnings("unused")
 				Environment env = requires().perception().perceive();
 				
+				Integer myRobotX=env.getRobotX(agentId);
+				Integer myRotY=env.getRobotY(agentId);
+				
 				//decide (random)
 				switch(rand.nextInt(4)) {
 				//act
