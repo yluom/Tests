@@ -41,7 +41,7 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 		return new IGlobalEnvironmentSet() {
 			@Override
 			public void set(Environment environment) {
-				EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "Global change of the envirpnment"));
+				EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "Global change of the environment"));
 				EnvironmentRepresentationImpl.this.environment = environment;
 			}
 		};
@@ -136,13 +136,13 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 					newY -= 1;
 					break;
 				case SOUTH:
-					newY+= 1;
+					newY += 1;
 					break;
 				case WEST:
 					newX -= 1;
 					break;
 				}
-				Element element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(x, y);
+				Element element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(newX, newY);
 				if(element != null && element.equals(Element.EMPTY)) {
 					if(EnvironmentRepresentationImpl.this.environment.moveRobot(x, y, newX, newY)) {
 						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "move "+x+";"+y+" to "+newX+";"+newY));

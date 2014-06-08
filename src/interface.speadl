@@ -1,5 +1,26 @@
+import fr.ups.m2dl.sma.dm.system.components.system.System
+import fr.ups.m2dl.sma.dm.system.process.IAction
+import fr.ups.m2dl.sma.dm.system.environment.IGlobalEnvironmentGet
+import fr.ups.m2dl.sma.dm.system.configuration.IConfig
+import fr.ups.m2dl.sma.dm.system.process.ICycle
+
 namespace fr.ups.m2dl.sma.dm.system.components.graphic {
 	component Interface {
-		//TODO
+		requires actions : IAction
+		requires envGet : IGlobalEnvironmentGet
+		requires config : IConfig
+		provides cycle : ICycle
+	}
+	
+	component RunnableComponent {
+		provides run : Runnable
+		part gui : Interface {
+			bind actions to system.actions
+			bind envGet to system.environmentGet
+			bind config to system.config 
+		}
+		part system : System {
+			bind externCycle to gui.cycle
+		}
 	}
 }
