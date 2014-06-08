@@ -8,11 +8,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.ups.m2dl.sma.dm.system.components.environment.EnvironmentRepresentation;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.PassageWay;
 import fr.ups.m2dl.sma.dm.system.log.ILog;
+import fr.ups.m2dl.sma.dm.system.log.Log;
 
 /**
  * @author SERIN Kevin
@@ -20,6 +23,7 @@ import fr.ups.m2dl.sma.dm.system.log.ILog;
  */
 public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 	private Environment environment;
+	private ArrayList<Log> logs = new ArrayList<>();
 	
 	
 	@Override
@@ -37,6 +41,7 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 		return new IGlobalEnvironmentSet() {
 			@Override
 			public void set(Environment environment) {
+				EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "Global change of the envirpnment"));
 				EnvironmentRepresentationImpl.this.environment = environment;
 			}
 		};
@@ -79,9 +84,11 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 				if(element != null && element.equals(Element.BOX)) {
 					if(EnvironmentRepresentationImpl.this.environment.removeBox(x, y)) {
 						EnvironmentRepresentationImpl.this.environment.setRobotState(agentIdentifier, true);
+						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "pick box at "+x+";"+y));
 						return true;
 					}
 				}
+				EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "fail pick box at "+x+";"+y));
 				return false;
 			}
 			
@@ -107,9 +114,11 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 				if(element != null && element.equals(Element.EMPTY)) {
 					if(EnvironmentRepresentationImpl.this.environment.addBox(x, y)) {
 						EnvironmentRepresentationImpl.this.environment.setRobotState(agentIdentifier, false);
+						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "drop box at "+x+";"+y));
 						return true;
 					}
 				}
+				EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "fail drop box at "+x+";"+y));
 				return false;
 			}
 			
@@ -136,9 +145,11 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 				Element element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(x, y);
 				if(element != null && element.equals(Element.EMPTY)) {
 					if(EnvironmentRepresentationImpl.this.environment.moveRobot(x, y, newX, newY)) {
+						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "move "+x+";"+y+" to "+newX+";"+newY));
 						return true;
 					}
 				}
+				EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "fail move "+x+";"+y+" to "+newX+";"+newY));
 				return false;
 			}
 		};
@@ -163,14 +174,25 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 			@Override
 			public void initialize(int nbAgent, int nbBox) {
 				EnvironmentRepresentationImpl.this.environment = new Environment(nbAgent, nbBox);
+				EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "Initialize with "+nbAgent+" agents and "+nbBox+" boxes"));
 			}
 		};
 	}
 
 	@Override
 	protected ILog make_log() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ILog() {
+			
+			@Override
+			public List<Log> getTrace() {
+				return EnvironmentRepresentationImpl.this.logs;
+			}
+			
+			@Override
+			public void clear() {
+				EnvironmentRepresentationImpl.this.logs.clear();
+			}
+		};
 	}
 
 	@Override

@@ -42,6 +42,9 @@ public class SimplePrinterImpl extends Printer {
 				for (Log log : traces) {
 					System.out.println(log.getDate()+"\t"+log.getAuthor()+"\t"+log.getMessage());
 				}
+				
+				// clear printed traces
+				requires().logs().clear();
 			}
 		};
 	}
