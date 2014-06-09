@@ -15,7 +15,7 @@ import fr.ups.m2dl.sma.dm.system.components.graphic.RunnableComponent.Component;
  * @author SERIN Kevin
  *
  */
-public class Start1 {
+public class StartConsole {
 
 	public static void main(String[] args) {
 		Component component = new RunnableComponent() {

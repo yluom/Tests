@@ -68,6 +68,7 @@ public class ControllerImpl extends Controller {
 		
 		public void turnOff() {
 			this.stop = true;
+			this.interrupt();
 		}
 	}
 

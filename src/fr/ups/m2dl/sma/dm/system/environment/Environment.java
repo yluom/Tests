@@ -153,6 +153,14 @@ public class Environment implements Serializable {
 		return localRepresentation;
 	}
 	
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
 	public void print() {
 		for (int y = 0; y < this.height; y++) {
 			for (int x = 0; x < this.width; x++) {
