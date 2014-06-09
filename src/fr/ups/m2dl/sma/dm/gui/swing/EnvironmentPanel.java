@@ -73,7 +73,7 @@ public class EnvironmentPanel extends JPanel {
 		}
 		g.fillRoundRect(x*SQUARE_SIZE+MARGIN, y*SQUARE_SIZE+MARGIN, SQUARE_SIZE, SQUARE_SIZE, 2, 2);
 		g.setColor(Color.BLACK);
-		g.drawRoundRect(x*SQUARE_SIZE+MARGIN, y*SQUARE_SIZE+MARGIN, SQUARE_SIZE, SQUARE_SIZE, 2, 2);
+		g.drawRoundRect(x*SQUARE_SIZE+MARGIN, y*SQUARE_SIZE+MARGIN, SQUARE_SIZE-1, SQUARE_SIZE-1, 2, 2);
 	}
 	
 	private void drawBox(Graphics g, int x, int y) {
