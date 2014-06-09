@@ -26,7 +26,9 @@ public class PerceiveDecidActBehaviourImpl extends AgentBehaviourPDA {
 
 	@Override
 	protected AgentDecision make_decision() {
-		return new RandomAgentDecisionImpl(agentId);
+		//return new RandomAgentDecisionImpl(agentId);
+		//return new AgentDecisionFarFromAreasImpl(agentId);
+		return new ReactiveAgentDecisionImpl(agentId);
 	}
 
 }
