@@ -21,6 +21,7 @@ public class Environment implements Serializable {
 	private final int HEIGHT_MARGIN = 5;
 	private final int WIDTH_MARGIN = 20;
 	
+	private int nbBoxesAtStarting;
 	private int width;
 	private int height;
 	private int yPassage1;
@@ -40,9 +41,10 @@ public class Environment implements Serializable {
 		this.yPassage1 = 0;
 		this.yPassage2 = this.height-1;
 		
+		this.nbBoxesAtStarting = nbBoxes;
 		this.clearEnvironment();
-		this.initBoxes(nbBoxes);
-		this.initDeposit(nbBoxes);
+		this.initBoxes(this.nbBoxesAtStarting);
+		this.initDeposit(this.nbBoxesAtStarting);
 		this.initObstacle();
 		this.createPassages();
 		this.createRobots(nbAgents);
@@ -136,10 +138,14 @@ public class Environment implements Serializable {
 		Environment localRepresentation = new Environment(0, nbCols*HEIGHT_DEPOSIT);
 		localRepresentation.clearEnvironment();
 		
-		int minX = Math.max(0, x-1);
-		int maxX = Math.min(this.width-1, x+1);
-		int minY = Math.max(0, y-1);
-		int maxY = Math.min(this.height-1, y+1);
+		//add all deposits because agents know the their positions
+		localRepresentation.initDeposit(this.nbBoxesAtStarting);
+		localRepresentation.initBoxes(this.nbBoxesAtStarting);
+		
+		int minX = Math.max(0, x-3);
+		int maxX = Math.min(this.width-1, x+3);
+		int minY = Math.max(0, y-3);
+		int maxY = Math.min(this.height-1, y+3);
 		for(int i = minX; i <= maxX; i++) {
 			for(int j = minY; j <= maxY; j++) {
 				Robot robot = this.robotsPositions.get(new Position(i, j));
@@ -149,6 +155,8 @@ public class Environment implements Serializable {
 				localRepresentation.environment[i][j] = this.environment[i][j];
 			}
 		}
+		
+		
 		
 		return localRepresentation;
 	}
