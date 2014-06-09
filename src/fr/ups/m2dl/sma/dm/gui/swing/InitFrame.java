@@ -32,7 +32,7 @@ public class InitFrame extends JFrame implements ActionListener {
 		setLayout(new FlowLayout());
 		
 		this.add(new JLabel("Nb agent: "));
-		this.nbAgentSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
+		this.nbAgentSpinner = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));
 		this.add(this.nbAgentSpinner);
 		this.add(new JLabel("Nb boxes: "));
 		this.nbBoxesSpinner = new JSpinner(new SpinnerNumberModel(100, 1, 1000, 1));

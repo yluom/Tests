@@ -39,8 +39,8 @@ public class ControllerImpl extends Controller {
 			}
 			
 			private long calculateDelay() {
-				long waitTime = 5000 / speed;
-				if(waitTime == 0) {
+				long waitTime = 3000 - (250 * speed);
+				if(waitTime <= 0) {
 					waitTime = 1;
 				}
 				return waitTime;
