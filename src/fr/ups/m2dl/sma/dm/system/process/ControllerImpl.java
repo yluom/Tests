@@ -15,16 +15,15 @@ public class ControllerImpl extends Controller {
 	protected IAction make_actions() {
 		return new IAction() {
 			private ControllerThread thread;
+			private int speed;
 			
 			@Override
 			public void start(int speed) {
+				this.speed = speed;
 				if(speed <= 0) {
-					speed = 1;
+					this.speed = 1;
 				}
-				long waitTime = 5000 / speed;
-				if(waitTime == 0) {
-					waitTime = 1;
-				}
+				long waitTime = calculateDelay();
 				
 				thread = new ControllerThread(waitTime);
 				thread.start();
@@ -39,9 +38,32 @@ public class ControllerImpl extends Controller {
 				}
 			}
 			
+			private long calculateDelay() {
+				long waitTime = 5000 / speed;
+				if(waitTime == 0) {
+					waitTime = 1;
+				}
+				return waitTime;
+			}
+			
 			@Override
 			public void nextCycle() {
 				requires().cycle().doCyle();
+			}
+			
+			@Override
+			public void increaseSpeed() {
+				this.speed++;
+				this.thread.setDelay(calculateDelay());				
+			}
+			
+			@Override
+			public void decreaseSpeed() {
+				this.speed--;
+				if(speed <= 0) {
+					this.speed = 1;
+				}
+				this.thread.setDelay(calculateDelay());	
 			}
 		};
 	}
@@ -55,13 +77,23 @@ public class ControllerImpl extends Controller {
 			this.delay = delay;
 		}
 		
+		public void setDelay(long delay) {
+			this.delay = delay;
+		}
+		
 		@Override
 		public void run() {
+			long time = System.currentTimeMillis();
 			while(!stop) {
 				requires().cycle().doCyle();
-				try {
-					Thread.sleep(delay);
-				} catch (InterruptedException e) {
+				
+				// waiting
+				time = System.currentTimeMillis();
+				while(System.currentTimeMillis() - time < delay) {
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+					}
 				}
 			}
 		}

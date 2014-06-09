@@ -1,7 +1,5 @@
 package fr.ups.m2dl.sma.dm.system.agents;
 
-import fr.ups.m2dl.sma.dm.system.components.environment.EnvironmentRepresentation;
-import fr.ups.m2dl.sma.dm.system.environment.Environment;
 import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentSet.Direction;
 
 public class AgentActionImpl extends AgentAct{
@@ -17,7 +15,7 @@ public class AgentActionImpl extends AgentAct{
 			
 			@Override
 			public boolean suicide() {
-
+				// TODO Auto-generated method stub
 				return false;
 			}
 			
