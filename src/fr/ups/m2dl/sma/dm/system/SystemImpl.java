@@ -42,7 +42,7 @@ public class SystemImpl extends System {
 	}
 
 	@Override
-	protected RobotsEcosystem make_eco() {
+	protected RobotsEcosystem make_ecox() {
 		return new RobotEcosystemImpl();
 	}
 

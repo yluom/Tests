@@ -94,19 +94,19 @@ namespace fr.ups.m2dl.sma.dm.system.components.system {
 		
 		part networkManager : NetworkCycleManager
 		part environment : EnvironmentRepresentation
-		part eco : RobotsEcosystem {
+		part ecox : RobotsEcosystem {
 			bind envLocalGet to environment.localGet
 			bind envLocalSet to environment.localSet
 		}
 		part logDispatcher : Dispatcher2[ILog] {
 			bind to1 to environment.log
-			bind to2 to eco.log
+			bind to2 to ecox.log
 		}
 		part printer : Printer {
 			bind logs to logDispatcher.from
 		}
 		part cycleDispatcher : Dispatcher3[ICycle] {
-			bind to1 to eco.cycle
+			bind to1 to ecox.cycle
 			bind to2 to printer.cycle
 			bind to3 to externCycle
 		}
@@ -122,7 +122,7 @@ namespace fr.ups.m2dl.sma.dm.system.components.system {
 		part configurator : Configurator {
 			bind networkConfig to networkManager.config
 			bind envConfig to environment.config
-			bind agentConfig to eco.config
+			bind agentConfig to ecox.config
 		}
 	}
 }

@@ -5,11 +5,11 @@ package fr.ups.m2dl.sma.dm.system.agents;
 
 /**
  * @author SERIN Kevin
- *
+ * 
  */
 public class PerceiveDecidActBehaviourImpl extends AgentBehaviourPDA {
-	private String agentId;
-	
+	private final String agentId;
+
 	public PerceiveDecidActBehaviourImpl(String agentId) {
 		this.agentId = agentId;
 	}
@@ -26,9 +26,9 @@ public class PerceiveDecidActBehaviourImpl extends AgentBehaviourPDA {
 
 	@Override
 	protected AgentDecision make_decision() {
-		//return new RandomAgentDecisionImpl(agentId);
-		//return new AgentDecisionFarFromAreasImpl(agentId);
-		return new ReactiveAgentDecisionImpl(agentId);
+		// return new RandomAgentDecisionImpl(agentId);
+		return new AgentDecisionFarFromAreasImpl(agentId);
+		// return new ReactiveAgentDecisionImpl(agentId);
 	}
 
 }
