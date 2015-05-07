@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 
 /**
  * @author SERIN Kevin
@@ -16,9 +17,8 @@ import java.util.Map.Entry;
  */
 public class Environment implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private final int SIZE_PASSAGE = 20;
-	private final int HEIGHT_DEPOSIT = 20;
-	private final int HEIGHT_MARGIN = 5;
+	private final int HEIGHT_DEPOSIT = 30;
+	private final int HEIGHT_MARGIN = 10;
 	private final int WIDTH_MARGIN = 20;
 	
 	private int nbBoxesAtStarting;
@@ -35,19 +35,22 @@ public class Environment implements Serializable {
 		int nbColsDeposit = (nbBoxes / HEIGHT_DEPOSIT) + (nbBoxes % HEIGHT_DEPOSIT == 0 ? 0 : 1);
 		int nbColsAgent = (nbAgents / HEIGHT_DEPOSIT) + (nbAgents % HEIGHT_DEPOSIT == 0 ? 0 : 1);
 		this.nbCols = Math.max(nbColsAgent, nbColsDeposit);
-		this.height = HEIGHT_DEPOSIT + 2*HEIGHT_MARGIN;
-		this.width = 2*nbCols + SIZE_PASSAGE + 2*WIDTH_MARGIN;
+//		this.height = HEIGHT_DEPOSIT + 2*HEIGHT_MARGIN;
+		this.height = 50;
+		this.width = 50;//2*nbCols + 2*WIDTH_MARGIN;
 		this.environment = new Element[this.width][this.height];
 		this.yPassage1 = 0;
 		this.yPassage2 = this.height-1;
 		
 		this.nbBoxesAtStarting = nbBoxes;
 		this.clearEnvironment();
-		this.initBoxes(this.nbBoxesAtStarting);
 		this.initDeposit(this.nbBoxesAtStarting);
 		this.initObstacle();
+		
 		this.createPassages();
 		this.createRobots(nbAgents);
+		this.initBoxes(this.nbBoxesAtStarting);
+
 	}
 	
 	public Collection<String> getRobots() {
@@ -174,7 +177,7 @@ public class Environment implements Serializable {
 			for (int x = 0; x < this.width; x++) {
 				switch (this.getElementAtPosition(x, y)) {
 				case EMPTY:
-					System.out.print("E");
+					System.out.print(" ");
 					break;
 				case AGENT:
 					System.out.print("a");
@@ -207,12 +210,14 @@ public class Environment implements Serializable {
 	
 	private void initBoxes(int nbBoxes) {
 		int cptBoxes = 0;
-		for(int x = this.width-1; (cptBoxes < nbBoxes &&  x >= this.width-nbCols); x--) {
-			for(int y = HEIGHT_MARGIN; (cptBoxes < nbBoxes && y < HEIGHT_MARGIN+HEIGHT_DEPOSIT); y++) {
-				this.environment[x][y] = Element.BOX;
-				cptBoxes++;
-			}
-		}
+		Random r = new Random();
+		int rX, rY;
+		for(cptBoxes = 0; cptBoxes < nbBoxes; cptBoxes++)
+		{	
+				rX = nbCols + r.nextInt(this.width-nbCols);
+				rY = r.nextInt(this.height);
+				this.environment[rX][rY] = Element.BOX;
+		}				
 	}
 	
 	private void initDeposit(int nbDeposit) {
@@ -226,15 +231,15 @@ public class Environment implements Serializable {
 	}
 	
 	private void initObstacle() {
-		for(int x = nbCols+WIDTH_MARGIN; x < nbCols+WIDTH_MARGIN+SIZE_PASSAGE; x++) {
+		for(int x = nbCols+WIDTH_MARGIN; x < nbCols+WIDTH_MARGIN; x++) {
 			for(int y = 0; y < this.height; y++) {
-				this.environment[x][y] = Element.OBSTACLE;
+				this.environment[x][y] = Element.EMPTY; // TODO LEO Element.OBSTACLEs
 			}
 		}
 	}
 	
 	private void createPassages() {
-		for(int x = nbCols+WIDTH_MARGIN; x <= nbCols+WIDTH_MARGIN+SIZE_PASSAGE; x++) {
+		for(int x = nbCols+WIDTH_MARGIN; x <= nbCols+WIDTH_MARGIN; x++) {
 			this.environment[x][this.yPassage1] = Element.EMPTY;
 			this.environment[x][this.yPassage2] = Element.EMPTY;
 		}

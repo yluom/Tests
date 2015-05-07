@@ -38,9 +38,9 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 				// 2 cas: si robot porte pas de casse et si porte
 				if (!isRobotCarryingBox(env, myRobotX, myRobotY)) {
 					// If far from stocking base go to
-					if (isFarFromBoxStocking(env, myRobotX)) {
-						closeUpToBoxStocking(env, myRobotX, myRobotY);
-					} else {
+//					if (isFarFromBoxStocking(env, myRobotX)) {
+//						closeUpToBoxStocking(env, myRobotX, myRobotY);
+//					} else {
 						// If there is a box near to the robot
 						Direction nearBox = directionOfNearBox(env, myRobotX,
 								myRobotY);
@@ -49,7 +49,7 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 						} else {
 							randomDeplacement();
 						}
-					}
+//					}
 				} else {
 					if (isFarFromBaseStocking(env, myRobotX)) {
 						closeUpToStockingBase(env, myRobotX, myRobotY);
@@ -100,10 +100,12 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 		Element rightElement = env.getElementAtPosition(robotX + 1, robotY);
 		if (isBlockedQueue(env, robotX, robotY)) {
 			requires().actions().goLeft();
-		} else if (rightElement.equals(Element.EMPTY)
+		}
+		// TODO Leo deplacement random des robots
+		/* else if (rightElement.equals(Element.EMPTY)
 				|| rightElement.equals(Element.DEPOSIT)) {
 			requires().actions().goRight();
-		} else {
+		} */else {
 			randomDeplacement();
 		}
 	}
