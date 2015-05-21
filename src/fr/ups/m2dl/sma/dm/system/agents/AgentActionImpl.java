@@ -6,7 +6,7 @@ public class AgentActionImpl extends AgentAct{
 	String agent;
 	
 	public AgentActionImpl(String agent) {
-		this.agent=agent;
+		this.agent = agent;
 	}
 
 	@Override
