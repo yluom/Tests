@@ -15,7 +15,6 @@ import fr.ups.m2dl.sma.dm.system.environment.Environment;
  */
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private ControlPanel controlPanel;
 	
 	public MainFrame(Environment environment) {
 		super();
@@ -23,18 +22,7 @@ public class MainFrame extends JFrame {
 		
 		this.setLayout(new BorderLayout());
 		this.add(new EnvironmentPanel(environment), BorderLayout.CENTER);
-		controlPanel = new ControlPanel();
-		this.add(controlPanel, BorderLayout.PAGE_END);
 		this.pack();
 		this.setVisible(true);
 	}
-	
-	public ControlPanel getControlPanel() {
-		return controlPanel;
-	}
-	
-//	public static void main(String[] args) {
-//		new MainFrame();
-//	}
-	
 }
