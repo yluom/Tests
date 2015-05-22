@@ -22,7 +22,6 @@ public class ConsoleGui extends Interface {
 			
 			@Override
 			public void afterCycle() {
-				requires().envGet().get().print();
 			}
 		};
 	}

@@ -14,7 +14,7 @@ import fr.ups.m2dl.sma.dm.system.process.ICycle;
 public class GuiInterfaceImpl extends Interface implements ControlPanelListener {
 	private MainFrame mainFrame;
 	private int speed = 1;
-	public static final int SPEED = 15;
+	public static final int SPEED = 10;
 	
 	public void run() {
 		requires().config().initialize(100, 100);

@@ -9,6 +9,7 @@ import java.util.List;
 
 import fr.ups.m2dl.sma.dm.system.environment.Environment;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
+import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentSet.Direction;
 import fr.ups.m2dl.sma.dm.system.log.ILog;
 import fr.ups.m2dl.sma.dm.system.log.Log;
@@ -20,18 +21,20 @@ import fr.ups.m2dl.sma.dm.system.process.ICycle;
  */
 public class ReactiveAgentDecisionImpl extends AgentDecision {
 	private String agentId;
+	private Element agentType;
 	private boolean wearBox = false;
 	private Goal goal;
 	private Direction goalDirection;
 	private Direction preference;
 	private int waitingTime = 0;
 	
-	public ReactiveAgentDecisionImpl(String agentId) {
+	public ReactiveAgentDecisionImpl(String agentId, Element agentType) {
 		this.agentId = agentId;
+		this.agentType = agentType;
 	}
 	
-	private Element getElementAt(Environment env, int myX, int myY, Direction direction) {
-		Element element = null;
+	private TypeElement getElementAt(Environment env, int myX, int myY, Direction direction) {
+		TypeElement element = null;
 		switch (direction) {
 		case EAST:
 			element = env.getElementAtPosition(myX + 1, myY);
@@ -50,37 +53,37 @@ public class ReactiveAgentDecisionImpl extends AgentDecision {
 	}
 	
 	private boolean canIGo(Environment env, int myX, int myY, Direction direction) {
-		Element element = getElementAt(env, myX, myY, direction);
-		return (element != null && (element.equals(Element.EMPTY) || element.equals(Element.DEPOSIT)));
+		TypeElement element = getElementAt(env, myX, myY, direction);
+		return (element != null && (element.equals(env.new TypeElement(Element.EMPTY)) || element.equals(env.new TypeElement(Element.DEPOSIT))));
 	}
 	
 	private Direction canIPick(Environment env, int myX, int myY) {
-		if(env.getElementAtPosition(myX+1, myY) != null && env.getElementAtPosition(myX+1, myY).equals(Element.BOX)) {
+		if(env.getElementAtPosition(myX+1, myY) != null && env.getElementAtPosition(myX+1, myY).equals(this.agentType)) {
 			return Direction.EAST;
 		}
-		if(env.getElementAtPosition(myX-1, myY) != null && env.getElementAtPosition(myX-1, myY).equals(Element.BOX)) {
+		if(env.getElementAtPosition(myX-1, myY) != null && env.getElementAtPosition(myX-1, myY).equals(this.agentType)) {
 			return Direction.WEST;
 		}
-		if(env.getElementAtPosition(myX, myY+1) != null && env.getElementAtPosition(myX, myY+1).equals(Element.BOX)) {
+		if(env.getElementAtPosition(myX, myY+1) != null && env.getElementAtPosition(myX, myY+1).equals(this.agentType)) {
 			return Direction.SOUTH;
 		}
-		if(env.getElementAtPosition(myX, myY-1) != null && env.getElementAtPosition(myX, myY-1).equals(Element.BOX)) {
+		if(env.getElementAtPosition(myX, myY-1) != null && env.getElementAtPosition(myX, myY-1).equals(this.agentType)) {
 			return Direction.NORTH;
 		}
 		return null;
 	}
 	
 	private Direction canIDrop(Environment env, int myX, int myY) {
-		if(env.getElementAtPosition(myX+1, myY) != null && env.getElementAtPosition(myX+1, myY).equals(Element.DEPOSIT)) {
+		if(env.getElementAtPosition(myX+1, myY) != null && env.getElementAtPosition(myX+1, myY).equals(env.new TypeElement(Element.DEPOSIT))) {
 			return Direction.EAST;
 		}
-		if(env.getElementAtPosition(myX-1, myY) != null && env.getElementAtPosition(myX-1, myY).equals(Element.DEPOSIT)) {
+		if(env.getElementAtPosition(myX-1, myY) != null && env.getElementAtPosition(myX-1, myY).equals(env.new TypeElement(Element.DEPOSIT))) {
 			return Direction.WEST;
 		}
-		if(env.getElementAtPosition(myX, myY+1) != null && env.getElementAtPosition(myX, myY+1).equals(Element.DEPOSIT)) {
+		if(env.getElementAtPosition(myX, myY+1) != null && env.getElementAtPosition(myX, myY+1).equals(env.new TypeElement(Element.DEPOSIT))) {
 			return Direction.SOUTH;
 		}
-		if(env.getElementAtPosition(myX, myY-1) != null && env.getElementAtPosition(myX, myY-1).equals(Element.DEPOSIT)) {
+		if(env.getElementAtPosition(myX, myY-1) != null && env.getElementAtPosition(myX, myY-1).equals(env.new TypeElement(Element.DEPOSIT))) {
 			return Direction.NORTH;
 		}
 		return null;
@@ -133,7 +136,7 @@ public class ReactiveAgentDecisionImpl extends AgentDecision {
 		}
 		
 		// Move to my goal if i can
-		Pos goal = (this.wearBox) ? findNearest(env, myX, myY, Element.DEPOSIT) : findNearest(env, myX, myY, Element.BOX);
+		Pos goal = (this.wearBox) ? findNearest(env, myX, myY, Element.DEPOSIT) : findNearest(env, myX, myY, this.agentType);
 		Direction direction = findDirectionToReachPosition(env, myX, myY, goal.x, goal.y);
 		if(direction != null) {
 			this.goal = Goal.GOTO;

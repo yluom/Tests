@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 import fr.ups.m2dl.sma.dm.system.environment.Environment;
+import fr.ups.m2dl.sma.dm.system.environment.Environment.ColorType;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
+import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentSet.Direction;
 import fr.ups.m2dl.sma.dm.system.log.ILog;
 import fr.ups.m2dl.sma.dm.system.log.Log;
@@ -15,10 +17,12 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 
 	private final List<Log> logs;
 	private final String agentId;
+	private final ColorType agentType;
 	private final Random rand;
 
-	public AgentDecisionFarFromAreasImpl(String agentId) {
+	public AgentDecisionFarFromAreasImpl(String agentId, ColorType agentType) {
 		this.agentId = agentId;
+		this.agentType = agentType;
 		this.rand = new Random();
 		this.logs = new ArrayList<>();
 	}
@@ -74,8 +78,8 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 	}
 
 	public boolean isRobotCarryingBox(Environment env, int robotX, int robotY) {
-		return env.getElementAtPosition(robotX, robotY).equals(
-				Element.AGENT_WITH_BOX);
+ 		return env.getElementAtPosition(robotX, robotY).equals(
+				env.new TypeElement(Element.AGENT_WITH_BOX));
 	}
 
 	public boolean isFarFromBoxStocking(Environment env, int robotX) {
@@ -97,7 +101,7 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 	}
 
 	public void closeUpToBoxStocking(Environment env, int robotX, int robotY) {
-		Element rightElement = env.getElementAtPosition(robotX + 1, robotY);
+		TypeElement rightElement = env.getElementAtPosition(robotX + 1, robotY);
 		if (isBlockedQueue(env, robotX, robotY)) {
 			requires().actions().goLeft();
 		}
@@ -111,10 +115,10 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 	}
 
 	public void closeUpToStockingBase(Environment env, int robotX, int robotY) {
-		Element leftElement = env.getElementAtPosition(robotX - 1, robotY);
+		TypeElement leftElement = env.getElementAtPosition(robotX - 1, robotY);
 
-		if (leftElement.equals(Element.EMPTY)
-				|| leftElement.equals(Element.DEPOSIT)) {
+		if (leftElement.equals(env.new TypeElement(Element.EMPTY))
+				|| leftElement.equals(env.new TypeElement(Element.DEPOSIT))) {
 			requires().actions().goLeft();
 		} else {
 			randomDeplacement();
@@ -123,29 +127,31 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 
 	// Check if Agents without box are "bloqued"
 	public boolean isBlockedQueue(Environment env, int robotX, int robotY) {
-		Element rightElement = env.getElementAtPosition(robotX + 1, robotY);
-		Element right2Element = env.getElementAtPosition(robotX + 2, robotY);
+		TypeElement rightElement = env.getElementAtPosition(robotX + 1, robotY);
+		TypeElement right2Element = env.getElementAtPosition(robotX + 2, robotY);
 
-		return rightElement.equals(Element.AGENT)
-				&& right2Element.equals(Element.AGENT);
+		return rightElement.equals(env.new TypeElement(Element.AGENT))
+				&& right2Element.equals(env.new TypeElement(Element.AGENT));
 	}
 
 	// Check if can pick a box
 	public Direction directionOfNearBox(Environment env, int robotX, int robotY) {
-		return directionOfElement(env, robotX, robotY, Element.BOX);
+		TypeElement elmt = env.new TypeElement(this.agentType);
+		return directionOfElement(env, robotX, robotY, elmt);
 	}
 
 	public Direction directionOfNearDeposit(Environment env, int robotX,
 			int robotY) {
-		return directionOfElement(env, robotX, robotY, Element.DEPOSIT);
+		TypeElement elmt = env.new TypeElement(Element.DEPOSIT);
+		return directionOfElement(env, robotX, robotY, elmt);
 	}
 
 	private Direction directionOfElement(Environment env, int robotX,
-			int robotY, Element element) {
-		Element leftElement = env.getElementAtPosition(robotX - 1, robotY);
-		Element topElement = env.getElementAtPosition(robotX, robotY - 1);
-		Element rightElement = env.getElementAtPosition(robotX + 1, robotY);
-		Element bottomElement = env.getElementAtPosition(robotX, robotY + 1);
+			int robotY, TypeElement element) {
+		TypeElement leftElement = env.getElementAtPosition(robotX - 1, robotY);
+		TypeElement topElement = env.getElementAtPosition(robotX, robotY - 1);
+		TypeElement rightElement = env.getElementAtPosition(robotX + 1, robotY);
+		TypeElement bottomElement = env.getElementAtPosition(robotX, robotY + 1);
 
 		if (leftElement != null && leftElement.equals(element)) {
 			return Direction.WEST;

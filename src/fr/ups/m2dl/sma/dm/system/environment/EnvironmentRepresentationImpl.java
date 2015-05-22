@@ -14,6 +14,7 @@ import java.util.List;
 import fr.ups.m2dl.sma.dm.system.components.environment.EnvironmentRepresentation;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.PassageWay;
+import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 import fr.ups.m2dl.sma.dm.system.log.ILog;
 import fr.ups.m2dl.sma.dm.system.log.Log;
 
@@ -80,8 +81,8 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 					x -= 1;
 					break;
 				}
-				Element element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(x, y);
-				if(element != null && element.equals(Element.BOX)) {
+				TypeElement element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(x, y);
+				if(element != null && (element.isABox())) {
 					if(EnvironmentRepresentationImpl.this.environment.removeBox(x, y)) {
 						EnvironmentRepresentationImpl.this.environment.setRobotState(agentIdentifier, true);
 						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "pick box at "+x+";"+y));
@@ -110,9 +111,9 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 					x -= 1;
 					break;
 				}
-				Element element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(x, y);
-				if(element != null && (element.equals(Element.EMPTY) || element.equals(Element.DEPOSIT))) {
-					if(element.equals(Element.DEPOSIT)) {
+				TypeElement element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(x, y);
+				if(element != null && (element.equals(EnvironmentRepresentationImpl.this.environment.new TypeElement(Element.EMPTY)) || element.equals(EnvironmentRepresentationImpl.this.environment.new TypeElement(Element.DEPOSIT)))) {
+					if(element.equals(EnvironmentRepresentationImpl.this.environment.new TypeElement(Element.DEPOSIT))) {
 						EnvironmentRepresentationImpl.this.environment.setRobotState(agentIdentifier, false);
 						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "box destroyed"));
 						return true;
@@ -147,8 +148,8 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 					newX -= 1;
 					break;
 				}
-				Element element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(newX, newY);
-				if(element != null && (element.equals(Element.EMPTY) || element.equals(Element.DEPOSIT))) {
+				TypeElement element = EnvironmentRepresentationImpl.this.environment.getElementAtPosition(newX, newY);
+				if(element != null && (element.equals(EnvironmentRepresentationImpl.this.environment.new TypeElement(Element.EMPTY)) || element.equals(EnvironmentRepresentationImpl.this.environment.new TypeElement(Element.DEPOSIT)))) {
 					if(EnvironmentRepresentationImpl.this.environment.moveRobot(x, y, newX, newY)) {
 						EnvironmentRepresentationImpl.this.logs.add(new Log("Environment", "move "+x+";"+y+" to "+newX+";"+newY));
 						return true;

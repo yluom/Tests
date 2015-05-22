@@ -3,7 +3,11 @@ package fr.ups.m2dl.sma.dm.system.agents;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
+import fr.ups.m2dl.sma.dm.system.environment.Environment.ColorType;
+import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
+import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentGet;
 import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentSet;
 import fr.ups.m2dl.sma.dm.system.log.ILog;
@@ -85,7 +89,10 @@ public class RobotEcosystemImpl extends RobotsEcosystem {
 		Robot agent = new Robot() {
 			@Override
 			protected AgentBehaviourPDA make_behaviour() {
-				return new PerceiveDecidActBehaviourImpl(identifier);
+				Random random = new Random();
+			    boolean typeOfRobot = random.nextBoolean();
+			    ColorType eltRobot = (typeOfRobot) ? ColorType.BOXA : ColorType.BOXB;
+				return new PerceiveDecidActBehaviourImpl(identifier, eltRobot);
 			}
 		};
 		return agent;
