@@ -65,10 +65,10 @@ public class EnvironmentPanel extends JPanel {
 				if(element.getElement() != null){
 					switch (element.getElement()) {
 					case AGENT:
-						this.drawAgent(g, element, x, y);
+						this.drawAgent(g, false, x, y);
 						break;
 					case AGENT_WITH_BOX:
-						this.drawAgent(g, element, x, y);
+						this.drawAgent(g, true, x, y);
 						break;
 					case DEPOSIT:
 						this.drawDeposit(g, x, y);
@@ -88,8 +88,8 @@ public class EnvironmentPanel extends JPanel {
 		}
 	}
 	
-	private void drawAgent(Graphics g, TypeElement element, int x, int y) {
-		if(element.isABox()) {
+	private void drawAgent(Graphics g, boolean haveABox, int x, int y) {
+		if(haveABox) {
 			g.drawImage(this.robPlein, x*SQUARE_SIZE+MARGIN, y*SQUARE_SIZE+MARGIN, this);
 		}
 		else {
