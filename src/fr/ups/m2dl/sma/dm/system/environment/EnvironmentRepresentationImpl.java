@@ -13,7 +13,6 @@ import java.util.List;
 
 import fr.ups.m2dl.sma.dm.system.components.environment.EnvironmentRepresentation;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
-import fr.ups.m2dl.sma.dm.system.environment.Environment.PassageWay;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 import fr.ups.m2dl.sma.dm.system.log.ILog;
 import fr.ups.m2dl.sma.dm.system.log.Log;
@@ -164,18 +163,6 @@ public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 	@Override
 	protected IConfigEnvironment make_config() {
 		return new IConfigEnvironment() {
-			
-			@Override
-			public boolean moveUpPassageWay(PassageWay passage) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public boolean moveDownPassageWay(PassageWay passage) {
-				// TODO Auto-generated method stub
-				return false;
-			}
 			
 			@Override
 			public Environment initialize(int nbAgent, int nbBox) {

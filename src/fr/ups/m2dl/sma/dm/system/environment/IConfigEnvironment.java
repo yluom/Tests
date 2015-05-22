@@ -3,7 +3,6 @@
  */
 package fr.ups.m2dl.sma.dm.system.environment;
 
-import fr.ups.m2dl.sma.dm.system.environment.Environment.PassageWay;
 
 /**
  * Port for the environment configuration
@@ -18,18 +17,4 @@ public interface IConfigEnvironment {
 	 * @param nbBox Number of box at the starting of the environment.
 	 */
 	Environment initialize(int nbAgent, int nbBox);
-	
-	/**
-	 * Move up to position of a passageway 
-	 * Can be call during the execution.
-	 * @return True if the operation succeed. 
-	 */
-	boolean moveUpPassageWay(PassageWay passage);
-	
-	/**
-	 * Move down the position of a passageway
-	 * Can be call during the execution.
-	 * @return True if the operation succeed.
-	 */
-	boolean moveDownPassageWay(PassageWay passage);
 }
