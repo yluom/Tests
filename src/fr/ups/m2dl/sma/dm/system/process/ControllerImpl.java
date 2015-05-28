@@ -29,41 +29,14 @@ public class ControllerImpl extends Controller {
 				thread.start();
 			}
 			
-			@Override
-			public void pause() {
-				thread.turnOff();
-				try {
-					thread.join();
-				} catch (InterruptedException e) {
-				}
-			}
-			
 			private long calculateDelay() {
 				long waitTime = 3000 - (250 * speed);
 				if(waitTime <= 0) {
 					waitTime = 1;
 				}
+				//TODO modifier cette valeur
+				waitTime = 80;
 				return waitTime;
-			}
-			
-			@Override
-			public void nextCycle() {
-				requires().cycle().doCyle();
-			}
-			
-			@Override
-			public void increaseSpeed() {
-				this.speed++;
-				this.thread.setDelay(calculateDelay());				
-			}
-			
-			@Override
-			public void decreaseSpeed() {
-				this.speed--;
-				if(speed <= 0) {
-					this.speed = 1;
-				}
-				this.thread.setDelay(calculateDelay());	
 			}
 		};
 	}

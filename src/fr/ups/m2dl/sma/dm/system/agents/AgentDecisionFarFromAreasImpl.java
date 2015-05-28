@@ -130,8 +130,10 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 		TypeElement rightElement = env.getElementAtPosition(robotX + 1, robotY);
 		TypeElement right2Element = env.getElementAtPosition(robotX + 2, robotY);
 
-		return rightElement.equals(env.new TypeElement(Element.AGENT))
-				&& right2Element.equals(env.new TypeElement(Element.AGENT));
+		return 	(rightElement.equals(env.new TypeElement(Element.AGENT_APPLE))
+				&& right2Element.equals(env.new TypeElement(Element.AGENT_APPLE))) ||
+				(rightElement.equals(env.new TypeElement(Element.AGENT_MICRO))
+						&& right2Element.equals(env.new TypeElement(Element.AGENT_MICRO)));
 	}
 
 	// Check if can pick a box

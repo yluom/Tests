@@ -11,9 +11,8 @@ import fr.ups.m2dl.sma.dm.system.process.ICycle;
  * @author SERIN Kevin
  *
  */
-public class GuiInterfaceImpl extends Interface implements ControlPanelListener {
+public class GuiInterfaceImpl extends Interface  {
 	private MainFrame mainFrame;
-	private int speed = 1;
 	public static final int SPEED = 12;
 	
 	public void run() {
@@ -38,35 +37,4 @@ public class GuiInterfaceImpl extends Interface implements ControlPanelListener 
 			}
 		};
 	}
-
-	@Override
-	public void onNextAction() {
-		requires().actions().nextCycle();
-	}
-
-	@Override
-	public void onStartAction() {
-		requires().actions().start(this.speed);
-	}
-
-	@Override
-	public void onStopAction() {
-		requires().actions().pause();
-	}
-
-	@Override
-	public void onSpeedUpAction() {
-		this.speed++;
-		requires().actions().increaseSpeed();
-	}
-
-	@Override
-	public void onSpeedDownAction() {
-		this.speed--;
-		if(this.speed <= 0) {
-			this.speed = 1;
-		}
-		requires().actions().decreaseSpeed();
-	}
-
 }

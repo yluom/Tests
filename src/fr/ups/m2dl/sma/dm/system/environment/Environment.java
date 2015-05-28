@@ -92,7 +92,7 @@ public class Environment implements Serializable {
 
 			Robot robot = this.robotsPositions.get(pos);
 			this.robotsPositions.remove(pos);
-			this.robotsPositions.put(newPos, new Robot(robot.id, robot.withBox));
+			this.robotsPositions.put(newPos, new Robot(robot.id, robot.withBox, robot.typeRobot));
 			return true;
 		}
 		return false;
@@ -127,7 +127,7 @@ public class Environment implements Serializable {
 					return new TypeElement(Element.AGENT_WITH_BOX);
 				}
 				else {
-					return new TypeElement(Element.AGENT);
+					return robot.typeRobot;
 				}
 			}
 			else {
@@ -153,7 +153,7 @@ public class Environment implements Serializable {
 			for(int j = minY; j <= maxY; j++) {
 				Robot robot = this.robotsPositions.get(new Position(i, j));
 				if(robot != null) {
-					localRepresentation.robotsPositions.put(new Position(i, j), new Robot(robot.id, robot.withBox));
+					localRepresentation.robotsPositions.put(new Position(i, j), new Robot(robot.id, robot.withBox, robot.typeRobot));
 				}
 				localRepresentation.environment[i][j] = this.environment[i][j];
 			}
@@ -219,14 +219,19 @@ public class Environment implements Serializable {
 		int cptRobot = 0;
 		for(int x = 0; (cptRobot < nb &&  x < nbCols); x++) {
 			for(int y = HEIGHT_MARGIN; (cptRobot < nb && y < HEIGHT_MARGIN+HEIGHT_DEPOSIT); y++) {
-				this.robotsPositions.put(new Position(x, y), new Robot("Robot"+cptRobot));
+				Random random = new Random();
+				if(random.nextBoolean()) {
+					this.robotsPositions.put(new Position(x, y), new Robot("Robot"+cptRobot, new TypeElement(Element.AGENT_APPLE)));
+				} else {
+					this.robotsPositions.put(new Position(x, y), new Robot("Robot"+cptRobot, new TypeElement(Element.AGENT_MICRO)));
+				}
 				cptRobot++;
 			}
 		}
 	}
 
 	public enum Element {
-		EMPTY, AGENT, AGENT_WITH_BOX, OBSTACLE, DEPOSIT
+		EMPTY, AGENT_APPLE, AGENT_MICRO, AGENT_WITH_BOX, OBSTACLE, DEPOSIT
 	}
 
 	public enum ColorType {
@@ -314,15 +319,18 @@ public class Environment implements Serializable {
 	private class Robot {
 		public String id;
 		public boolean withBox;
+		public TypeElement typeRobot;
 
-		public Robot(String id) {
+		public Robot(String id, TypeElement type) {
 			this.id = id;
 			this.withBox = false;
+			this.typeRobot = type;
 		}
 
-		public Robot(String id, boolean withBox) {
+		public Robot(String id, boolean withBox, TypeElement type) {
 			this.id = id;
 			this.withBox = withBox;
+			this.typeRobot = type;
 		}
 	}
 

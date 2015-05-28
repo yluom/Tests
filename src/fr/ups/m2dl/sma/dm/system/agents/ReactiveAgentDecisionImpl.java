@@ -154,7 +154,7 @@ public class ReactiveAgentDecisionImpl extends AgentDecision {
 		
 		// waiting 1 time if my favorite direction is blocked by an agent
 		if(preference != null && waitingTime < 1 &&
-				(Element.AGENT.equals(getElementAt(env, myX, myY, preference)) || Element.AGENT_WITH_BOX.equals(getElementAt(env, myX, myY, preference)))) {
+				(Element.AGENT_APPLE.equals(getElementAt(env, myX, myY, preference)) || Element.AGENT_MICRO.equals(getElementAt(env, myX, myY, preference)) || Element.AGENT_WITH_BOX.equals(getElementAt(env, myX, myY, preference)))) {
 			this.goal = null;
 			return;
 		}

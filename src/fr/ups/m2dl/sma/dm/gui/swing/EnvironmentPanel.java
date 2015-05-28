@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import fr.ups.m2dl.sma.dm.system.environment.Environment;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.ColorType;
+import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 
 /**
@@ -64,11 +65,14 @@ public class EnvironmentPanel extends JPanel {
 				TypeElement element = environment.getElementAtPosition(x, y);
 				if(element.getElement() != null){
 					switch (element.getElement()) {
-					case AGENT:
-						this.drawAgent(g, false, x, y);
+					case AGENT_APPLE:
+						this.drawAgent(g, false, x, y, element.getElement());
+						break;
+					case AGENT_MICRO:
+						this.drawAgent(g, false, x, y, element.getElement());
 						break;
 					case AGENT_WITH_BOX:
-						this.drawAgent(g, true, x, y);
+						this.drawAgent(g, true, x, y, element.getElement());
 						break;
 					case DEPOSIT:
 						this.drawDeposit(g, x, y);
@@ -88,12 +92,12 @@ public class EnvironmentPanel extends JPanel {
 		}
 	}
 	
-	private void drawAgent(Graphics g, boolean haveABox, int x, int y) {
+	private void drawAgent(Graphics g, boolean haveABox, int x, int y, Element type) {
 		if(haveABox) {
 			g.drawImage(this.robPlein, x*SQUARE_SIZE+MARGIN, y*SQUARE_SIZE+MARGIN, this);
 		}
 		else {
-			g.drawImage(this.robApple, x*SQUARE_SIZE+MARGIN, y*SQUARE_SIZE+MARGIN, this);
+			g.drawImage(getImage(type), x*SQUARE_SIZE+MARGIN, y*SQUARE_SIZE+MARGIN, this);
 		}
 	}
 	
@@ -105,6 +109,14 @@ public class EnvironmentPanel extends JPanel {
 		switch(colorType){
 		case BOXA : return this.apple;
 		case BOXB : return this.micro;
+		}
+		return null;
+	}
+	
+	private Image getImage(Element type) {
+		switch(type){
+		case AGENT_APPLE : return this.robApple;
+		case AGENT_MICRO : return this.robMicro;
 		}
 		return null;
 	}
