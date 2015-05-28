@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.ups.m2dl.sma.dm.gui.swing;
 
 import java.awt.BorderLayout;
@@ -9,10 +6,6 @@ import javax.swing.JFrame;
 
 import fr.ups.m2dl.sma.dm.system.environment.Environment;
 
-/**
- * @author SERIN Kevin
- *
- */
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	

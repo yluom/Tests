@@ -101,15 +101,10 @@ public class AgentDecisionFarFromAreasImpl extends AgentDecision {
 	}
 
 	public void closeUpToBoxStocking(Environment env, int robotX, int robotY) {
-		TypeElement rightElement = env.getElementAtPosition(robotX + 1, robotY);
 		if (isBlockedQueue(env, robotX, robotY)) {
 			requires().actions().goLeft();
 		}
-		// TODO Leo deplacement random des robots
-		/* else if (rightElement.equals(Element.EMPTY)
-				|| rightElement.equals(Element.DEPOSIT)) {
-			requires().actions().goRight();
-		} */else {
+	else {
 			randomDeplacement();
 		}
 	}

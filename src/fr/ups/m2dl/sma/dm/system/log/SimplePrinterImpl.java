@@ -13,11 +13,6 @@ import java.util.List;
 import fr.ups.m2dl.sma.dm.system.components.log.Printer;
 import fr.ups.m2dl.sma.dm.system.process.ICycle;
 
-/**
- * Printer for the standard output
- * @author SERIN Kevin
- *
- */
 public class SimplePrinterImpl extends Printer {
 
 	@Override

@@ -5,23 +5,15 @@ package fr.ups.m2dl.sma.dm.system.process;
 
 import fr.ups.m2dl.sma.dm.system.components.process.Controller;
 
-/**
- * @author SERIN Kevin
- *
- */
 public class ControllerImpl extends Controller {
 
 	@Override
 	protected IAction make_actions() {
 		return new IAction() {
 			private ControllerThread thread;
-			private int speed;
-			
 			@Override
 			public void start(int speed) {
-				this.speed = speed;
 				if(speed <= 0) {
-					this.speed = 1;
 				}
 				long waitTime = speed;
 				
@@ -39,10 +31,7 @@ public class ControllerImpl extends Controller {
 			this.stop = false;
 			this.delay = delay;
 		}
-		
-		public void setDelay(long delay) {
-			this.delay = delay;
-		}
+
 		
 		@Override
 		public void run() {
@@ -61,10 +50,7 @@ public class ControllerImpl extends Controller {
 			}
 		}
 		
-		public void turnOff() {
-			this.stop = true;
-			this.interrupt();
-		}
+
 	}
 
 }

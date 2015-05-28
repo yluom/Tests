@@ -3,11 +3,6 @@
  */
 package fr.ups.m2dl.sma.dm.system.network;
 
-/**
- * Port for network configuration
- * @author SERIN Kevin
- *
- */
 public interface IConfigNetwork {
 	/**
 	 * Configure the machine in charge of the environment merging.

@@ -7,10 +7,7 @@ import java.util.List;
 
 import fr.ups.m2dl.sma.dm.utils.Dispatcher2;
 
-/**
- * @author SERIN Kevin
- *
- */
+
 public class PrinterDispatcherImpl extends Dispatcher2<ILog> {
 
 	@Override

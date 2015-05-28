@@ -17,10 +17,6 @@ import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 import fr.ups.m2dl.sma.dm.system.log.ILog;
 import fr.ups.m2dl.sma.dm.system.log.Log;
 
-/**
- * @author SERIN Kevin
- *
- */
 public class EnvironmentRepresentationImpl extends EnvironmentRepresentation {
 	private Environment environment;
 	private ArrayList<Log> logs = new ArrayList<>();

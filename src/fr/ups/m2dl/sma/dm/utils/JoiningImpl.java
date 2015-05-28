@@ -3,10 +3,6 @@
  */
 package fr.ups.m2dl.sma.dm.utils;
 
-/**
- * @author SERIN Kevin
- *
- */
 public class JoiningImpl<T> extends Joining<T> {
 
 	@Override

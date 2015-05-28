@@ -6,16 +6,11 @@ package fr.ups.m2dl.sma.dm.system.agents;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import fr.ups.m2dl.sma.dm.system.environment.Environment;
 import fr.ups.m2dl.sma.dm.system.log.ILog;
 import fr.ups.m2dl.sma.dm.system.log.Log;
 import fr.ups.m2dl.sma.dm.system.process.ICycle;
 
-/**
- * @author SERIN Kevin
- *
- */
+
 public class RandomAgentDecisionImpl extends AgentDecision {
 	private String agentId;
 	private List<Log> logs;
@@ -34,13 +29,6 @@ public class RandomAgentDecisionImpl extends AgentDecision {
 			
 			@Override
 			public void doCyle() {
-				//perceive
-				@SuppressWarnings("unused")
-				Environment env = requires().perception().perceive();
-				
-				Integer myRobotX=env.getRobotX(agentId);
-				Integer myRotY=env.getRobotY(agentId);
-				
 				//decide (random)
 				switch(rand.nextInt(4)) {
 				//act

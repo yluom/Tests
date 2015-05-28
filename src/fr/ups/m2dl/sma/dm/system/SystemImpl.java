@@ -25,10 +25,6 @@ import fr.ups.m2dl.sma.dm.system.process.ICycle;
 import fr.ups.m2dl.sma.dm.utils.Dispatcher2;
 import fr.ups.m2dl.sma.dm.utils.Dispatcher3;
 
-/**
- * @author SERIN Kevin
- *
- */
 public class SystemImpl extends System {
 
 	@Override

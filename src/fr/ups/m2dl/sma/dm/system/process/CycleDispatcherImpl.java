@@ -5,10 +5,6 @@ package fr.ups.m2dl.sma.dm.system.process;
 
 import fr.ups.m2dl.sma.dm.utils.Dispatcher3;
 
-/**
- * @author SERIN Kevin
- *
- */
 public class CycleDispatcherImpl extends Dispatcher3<ICycle> {
 
 	@Override

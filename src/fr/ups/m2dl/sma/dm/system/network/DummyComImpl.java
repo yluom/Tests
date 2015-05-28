@@ -6,11 +6,6 @@ package fr.ups.m2dl.sma.dm.system.network;
 import fr.ups.m2dl.sma.dm.system.components.network.Com;
 import fr.ups.m2dl.sma.dm.system.environment.Environment;
 
-/**
- * Empty implementation for network communication
- * @author SERIN Kevin
- *
- */
 public class DummyComImpl extends Com {
 
 	@Override

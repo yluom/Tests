@@ -11,10 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-/**
- * @author SERIN Kevin
- * TODO: refactor this ugly code
- */
+
 public class Environment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final int HEIGHT_DEPOSIT = 30;
@@ -210,7 +207,7 @@ public class Environment implements Serializable {
 	private void initObstacle() {
 		for(int x = nbCols+WIDTH_MARGIN; x < nbCols+WIDTH_MARGIN; x++) {
 			for(int y = 0; y < this.height; y++) {
-				this.environment[x][y] = new TypeElement(Element.EMPTY); // TODO LEO Element.OBSTACLEs
+				this.environment[x][y] = new TypeElement(Element.EMPTY);
 			}
 		}
 	}
@@ -334,7 +331,5 @@ public class Environment implements Serializable {
 		}
 	}
 
-	public static void main(String[] args) {
-		Environment e = new Environment(15, 60);
-	}
+
 }

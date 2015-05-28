@@ -7,10 +7,6 @@ import fr.ups.m2dl.sma.dm.system.components.graphic.Interface;
 import fr.ups.m2dl.sma.dm.system.process.ICycle;
 
 
-/**
- * @author SERIN Kevin
- *
- */
 public class GuiInterfaceImpl extends Interface  {
 	private MainFrame mainFrame;
 	public static final int NOMBRE_ROBOTS = 120;

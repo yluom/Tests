@@ -19,10 +19,6 @@ import fr.ups.m2dl.sma.dm.system.environment.Environment.ColorType;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 
-/**
- * @author SERIN Kevin
- *
- */
 public class EnvironmentPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final int SQUARE_SIZE = 16;
@@ -117,6 +113,8 @@ public class EnvironmentPanel extends JPanel {
 		switch(type){
 		case AGENT_APPLE : return this.robApple;
 		case AGENT_MICRO : return this.robMicro;
+		default:
+			break;
 		}
 		return null;
 	}

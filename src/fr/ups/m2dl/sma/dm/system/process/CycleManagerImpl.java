@@ -6,10 +6,6 @@ package fr.ups.m2dl.sma.dm.system.process;
 import fr.ups.m2dl.sma.dm.system.components.process.CycleManager;
 import fr.ups.m2dl.sma.dm.system.environment.Environment;
 
-/**
- * @author SERIN Kevin
- *
- */
 public class CycleManagerImpl extends CycleManager {
 
 	@Override

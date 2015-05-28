@@ -3,11 +3,7 @@
  */
 package fr.ups.m2dl.sma.dm.system.environment;
 
-/**
- * Port for environment persistence.
- * @author SERIN Kevin
- *
- */
+
 public interface IPersist {
 	/**
 	 * Persists the entire representation of the environment.

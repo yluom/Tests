@@ -15,7 +15,6 @@ public class AgentActionImpl extends AgentAct{
 			
 			@Override
 			public boolean suicide() {
-				// TODO Auto-generated method stub
 				return false;
 			}
 			

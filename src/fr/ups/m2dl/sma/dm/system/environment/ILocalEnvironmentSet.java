@@ -3,12 +3,7 @@
  */
 package fr.ups.m2dl.sma.dm.system.environment;
 
-/**
- * Port for changing local information on the environment
- * (usually used by agents)
- * @author SERIN Kevin
- *
- */
+
 public interface ILocalEnvironmentSet {
 	public enum Direction {
 		NORTH, SOUTH, EAST, WEST;

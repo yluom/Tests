@@ -3,11 +3,7 @@
  */
 package fr.ups.m2dl.sma.dm.system.log;
 
-/**
- * Representation of a log report.
- * @author SERIN Kevin
- *
- */
+
 public class Log {
 	private String author;
 	private String message;

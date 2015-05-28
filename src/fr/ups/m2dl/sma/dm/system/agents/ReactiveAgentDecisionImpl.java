@@ -15,10 +15,7 @@ import fr.ups.m2dl.sma.dm.system.log.ILog;
 import fr.ups.m2dl.sma.dm.system.log.Log;
 import fr.ups.m2dl.sma.dm.system.process.ICycle;
 
-/**
- * @author SERIN Kevin
- *
- */
+
 public class ReactiveAgentDecisionImpl extends AgentDecision {
 	private String agentId;
 	private Element agentType;

@@ -3,15 +3,9 @@
  */
 package fr.ups.m2dl.sma.dm.system.agents;
 
-import fr.ups.m2dl.sma.dm.system.environment.Environment;
 import fr.ups.m2dl.sma.dm.system.environment.Environment.ColorType;
-import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
-import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 
-/**
- * @author SERIN Kevin
- * 
- */
+
 public class PerceiveDecidActBehaviourImpl extends AgentBehaviourPDA {
 	private final String agentId;
 	private final ColorType agentType;

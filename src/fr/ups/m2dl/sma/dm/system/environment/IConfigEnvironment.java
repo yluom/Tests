@@ -4,11 +4,7 @@
 package fr.ups.m2dl.sma.dm.system.environment;
 
 
-/**
- * Port for the environment configuration
- * @author SERIN Kevin
- *
- */
+
 public interface IConfigEnvironment {
 	/** Initialize the environment. 
 	 * Must be call before starting the system.

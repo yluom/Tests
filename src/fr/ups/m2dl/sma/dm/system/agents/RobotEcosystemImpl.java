@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import fr.ups.m2dl.sma.dm.system.environment.Environment.ColorType;
-import fr.ups.m2dl.sma.dm.system.environment.Environment.Element;
-import fr.ups.m2dl.sma.dm.system.environment.Environment.TypeElement;
 import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentGet;
 import fr.ups.m2dl.sma.dm.system.environment.ILocalEnvironmentSet;
 import fr.ups.m2dl.sma.dm.system.log.ILog;
@@ -16,17 +14,13 @@ import fr.ups.m2dl.sma.dm.system.process.ICycle;
 import fr.ups.m2dl.sma.dm.utils.Joining;
 import fr.ups.m2dl.sma.dm.utils.JoiningImpl;
 
-/**
- * @author SERIN Kevin
- *
- */
+
 public class RobotEcosystemImpl extends RobotsEcosystem {
 	private List<Robot.Component> agents = new ArrayList<>();
 	private List<Log> logs = new ArrayList<>();
 	
 	@Override
 	protected ICycle make_cycle() {
-		//TODO: maybe use threads
 		return new ICycle() {
 			
 			@Override
