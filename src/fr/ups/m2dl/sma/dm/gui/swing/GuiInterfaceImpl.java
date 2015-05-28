@@ -13,10 +13,12 @@ import fr.ups.m2dl.sma.dm.system.process.ICycle;
  */
 public class GuiInterfaceImpl extends Interface  {
 	private MainFrame mainFrame;
-	public static final int SPEED = 12;
+	public static final int NOMBRE_ROBOTS = 120;
+	public static final int NOMBRE_BOITES = 120;
+	public static final int SPEED = 80;
 	
 	public void run() {
-		requires().config().initialize(100, 100);
+		requires().config().initialize(NOMBRE_ROBOTS, NOMBRE_BOITES);
 		requires().actions().start(SPEED);
 		mainFrame = new MainFrame(requires().envGet().get());
 	}

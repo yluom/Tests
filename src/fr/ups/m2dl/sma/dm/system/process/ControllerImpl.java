@@ -23,20 +23,10 @@ public class ControllerImpl extends Controller {
 				if(speed <= 0) {
 					this.speed = 1;
 				}
-				long waitTime = calculateDelay();
+				long waitTime = speed;
 				
 				thread = new ControllerThread(waitTime);
 				thread.start();
-			}
-			
-			private long calculateDelay() {
-				long waitTime = 3000 - (250 * speed);
-				if(waitTime <= 0) {
-					waitTime = 1;
-				}
-				//TODO modifier cette valeur
-				waitTime = 80;
-				return waitTime;
 			}
 		};
 	}
